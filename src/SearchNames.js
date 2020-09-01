@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 
-function SearchNames() {
+function SearchNames(props) {
+  const [inputValue, setInputValue] = useState("");
+
+  function handleChange(event) {
+    setInputValue(event.target.value);
+  }
+  props.funcToPass(inputValue);
+
   return (
     <div>
-      <input />
+      <input onChange={handleChange} value={inputValue} autoFocus />
     </div>
   );
 }

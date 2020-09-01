@@ -1,13 +1,20 @@
 import React from "react";
 import babyNames from "./babyNamesData.json";
 
-function NamesList() {
-  console.log(babyNames);
-  console.log(SortNames(babyNames));
+function NamesList(props) {
+  let searched = babyNames.slice(0);
+  if (props.searchString.length !== 0) {
+    searched = babyNames.filter((nameInfo) =>
+      nameInfo.name.startsWith(props.searchString)
+    );
+  }
+
   return (
     <div className="namelist">
-      {SortNames(babyNames).map((names) => (
-        <span className={"name " + names.sex}>{names.name}</span>
+      {SortNames(searched).map((names, index) => (
+        <span key={index} className={"name " + names.sex}>
+          {names.name}
+        </span>
       ))}
     </div>
   );
