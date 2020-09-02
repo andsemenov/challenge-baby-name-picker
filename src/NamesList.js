@@ -4,15 +4,21 @@ import babyNames from "./babyNamesData.json";
 function NamesList(props) {
   let searched = babyNames.slice(0);
   let [nameClicked, setNameClicked] = useState("");
+  //let [searched, setSearched] = useState(babyNames);
   if (props.searchString.length !== 0) {
     searched = babyNames.filter((nameInfo) =>
       nameInfo.name.toLowerCase().startsWith(props.searchString.toLowerCase())
     );
   }
   function handleClick(event) {
-    setNameClicked(event.target);
+    setNameClicked(event.target.innerText);
   }
-  console.log(nameClicked);
+  if (nameClicked) {
+    searched = searched.filter((names) => names.name !== nameClicked);
+  }
+
+  //setSearched(searched.filter((names) => names.name !== nameClicked).slice());
+
   return (
     <div className="namelist">
       {SortNames(searched).map((names, index) => (
