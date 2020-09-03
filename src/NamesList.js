@@ -1,31 +1,57 @@
 import React, { useState } from "react";
-import babyNames from "./babyNamesData.json";
 
 function NamesList(props) {
-  let searched = babyNames.slice(0);
-  let [nameClicked, setNameClicked] = useState("");
-  //let [searched, setSearched] = useState(babyNames);
+  let sortedBabyNames = SortNames(props.babyNames);
+  let [namesToDisplay, setNamesToDisplay] = useState(sortedBabyNames);
+  let [namesToFavourite, setNamesFavourite] = useState([]);
+
+  ///////////////////////////////////////////////////////////////////////////////////////
   if (props.searchString.length !== 0) {
-    searched = babyNames.filter((nameInfo) =>
+    namesToDisplay = sortedBabyNames.filter((nameInfo) =>
       nameInfo.name.toLowerCase().startsWith(props.searchString.toLowerCase())
     );
   }
-  function handleClick(event) {
-    setNameClicked(event.target.innerText);
-  }
-  if (nameClicked) {
-    searched = searched.filter((names) => names.name !== nameClicked);
-  }
 
-  //setSearched(searched.filter((names) => names.name !== nameClicked).slice());
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  function handleClick(event) {
+    let nameClicked = event.target.innerText;
+    setNamesToDisplay(
+      namesToDisplay.filter((names) => names.name !== nameClicked)
+    );
+    setNamesFavourite(
+      namesToFavourite.concat(
+        namesToDisplay.filter((names) => names.name === nameClicked)
+      )
+    );
+  }
 
   return (
-    <div className="namelist">
-      {SortNames(searched).map((names, index) => (
-        <span key={index} className={"name " + names.sex} onClick={handleClick}>
-          {names.name}
-        </span>
-      ))}
+    <div>
+      <div className="favourite">
+        Favourites:
+        {namesToFavourite.map((names, index) => (
+          <span
+            key={index}
+            className={"name " + names.sex}
+            onClick={handleClick}
+          >
+            {names.name}{" "}
+          </span>
+        ))}
+      </div>
+
+      <div className="namelist">
+        {namesToDisplay.map((names, index) => (
+          <span
+            key={index}
+            className={"name " + names.sex}
+            onClick={handleClick}
+          >
+            {names.name}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
