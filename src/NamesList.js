@@ -6,15 +6,14 @@ function NamesList(props) {
   let [namesToFavourite, setNamesFavourite] = useState([]);
 
   ///////////////////////////////////////////////////////////////////////////////////////
-  if (props.searchString.length !== 0) {
-    namesToDisplay = sortedBabyNames.filter((nameInfo) =>
-      nameInfo.name.toLowerCase().startsWith(props.searchString.toLowerCase())
-    );
-  }
+
+  namesToDisplay = namesToDisplay.filter((nameInfo) =>
+    nameInfo.name.toLowerCase().startsWith(props.searchString.toLowerCase())
+  );
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  function handleClick(event) {
+  function handleToFavourite(event) {
     let nameClicked = event.target.innerText;
     setNamesToDisplay(
       namesToDisplay.filter((names) => names.name !== nameClicked)
@@ -26,6 +25,20 @@ function NamesList(props) {
     );
   }
 
+  function handleToNames(event) {
+    let nameClicked = event.target.innerText;
+    setNamesToDisplay(
+      SortNames(
+        namesToDisplay.concat(
+          namesToFavourite.filter((names) => names.name === nameClicked)
+        )
+      )
+    );
+    setNamesFavourite(
+      namesToFavourite.filter((names) => names.name !== nameClicked)
+    );
+  }
+
   return (
     <div>
       <div className="favourite">
@@ -34,9 +47,9 @@ function NamesList(props) {
           <span
             key={index}
             className={"name " + names.sex}
-            onClick={handleClick}
+            onClick={handleToNames}
           >
-            {names.name}{" "}
+            {names.name}
           </span>
         ))}
       </div>
@@ -46,7 +59,7 @@ function NamesList(props) {
           <span
             key={index}
             className={"name " + names.sex}
-            onClick={handleClick}
+            onClick={handleToFavourite}
           >
             {names.name}
           </span>

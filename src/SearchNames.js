@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function SearchNames(props) {
   const [inputValue, setInputValue] = useState("");
@@ -6,7 +6,7 @@ function SearchNames(props) {
   function handleChange(event) {
     setInputValue(event.target.value);
   }
-  props.funcToPass(inputValue);
+  useEffect(() => props.funcToPass(inputValue), [props, inputValue]);
 
   return (
     <div>
