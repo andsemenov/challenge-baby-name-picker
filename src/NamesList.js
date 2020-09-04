@@ -38,6 +38,10 @@ function NamesList(props) {
       namesToFavourite.filter((names) => names.name !== nameClicked)
     );
   }
+  if (props.radioValue === "male")
+    namesToDisplay = namesToDisplay.filter((names) => names.sex === "m");
+  if (props.radioValue === "female")
+    namesToDisplay = namesToDisplay.filter((names) => names.sex === "f");
 
   return (
     <div>
