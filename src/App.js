@@ -19,8 +19,10 @@ function App() {
   console.log(radioValue);
   return (
     <div>
-      <SearchNames funcToPass={funcToPass} />
-      <RadioButton funcToRadio={funcToRadio} />
+      <div className="search">
+        <SearchNames funcToPass={funcToPass} />
+        <RadioButton funcToRadio={funcToRadio} />
+      </div>
       <NamesList
         searchString={valuePass}
         babyNames={babyNames}

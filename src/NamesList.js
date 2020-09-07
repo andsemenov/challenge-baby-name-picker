@@ -56,6 +56,7 @@ function NamesList(props) {
             {names.name}
           </span>
         ))}
+        <hr />
       </div>
 
       <div className="namelist">

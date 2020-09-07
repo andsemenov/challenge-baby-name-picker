@@ -9,7 +9,7 @@ function SearchNames(props) {
   useEffect(() => props.funcToPass(inputValue), [props, inputValue]);
 
   return (
-    <div>
+    <div id="search">
       <input onChange={handleChange} value={inputValue} autoFocus />
     </div>
   );

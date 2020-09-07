@@ -8,12 +8,36 @@ function RadioButton(props) {
   useEffect(() => props.funcToRadio(inputValue), [props, inputValue]);
   return (
     <form onChange={handleChange}>
-      <input type="radio" id="all" name="gender" value="all" defaultChecked />
-      <label htmlFor="all">all</label>
-      <input type="radio" id="female" name="gender" value="female" />
-      <label htmlFor="female">female</label>
-      <input type="radio" id="male" name="gender" value="male" />
-      <label htmlFor="male">male</label>
+      <div className="form_radio_btn">
+        <input type="radio" id="all" name="gender" value="all" defaultChecked />
+        <label htmlFor="all">
+          <img alt="all" src="/all.jpg" />
+        </label>
+      </div>
+      <div className="form_radio_btn">
+        <input
+          type="radio"
+          id="female"
+          name="gender"
+          value="female"
+          className="form_radio_btn"
+        />
+        <label htmlFor="female">
+          <img alt="female" src="/female.jpg" />
+        </label>
+      </div>
+      <div className="form_radio_btn">
+        <input
+          type="radio"
+          id="male"
+          name="gender"
+          value="male"
+          className="form_radio_btn"
+        />
+        <label htmlFor="male">
+          <img alt="male" src="/male.jpg" />
+        </label>
+      </div>
     </form>
   );
 }
