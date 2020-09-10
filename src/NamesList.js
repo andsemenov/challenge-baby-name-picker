@@ -2,8 +2,22 @@ import React, { useState } from "react";
 
 function NamesList(props) {
   let sortedBabyNames = SortNames(props.babyNames);
-  let [namesToDisplay, setNamesToDisplay] = useState(sortedBabyNames);
-  let [namesToFavourite, setNamesFavourite] = useState([]);
+
+  let initialNames, initialFavourites;
+  if (localStorage.getItem("namesToDisplay") === null) {
+    initialNames = sortedBabyNames;
+  } else {
+    initialNames = JSON.parse(localStorage.getItem("namesToDisplay"));
+  }
+  let [namesToDisplay, setNamesToDisplay] = useState(initialNames);
+
+  if (localStorage.getItem("favourites") === null) {
+    initialFavourites = [];
+  } else {
+    initialFavourites = JSON.parse(localStorage.getItem("favourites"));
+  }
+
+  let [namesToFavourite, setNamesFavourite] = useState(initialFavourites);
 
   ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -21,6 +35,21 @@ function NamesList(props) {
     setNamesFavourite(
       namesToFavourite.concat(
         namesToDisplay.filter((names) => names.name === nameClicked)
+      )
+    );
+    localStorage.setItem(
+      "favourites",
+      JSON.stringify(
+        namesToFavourite.concat(
+          namesToDisplay.filter((names) => names.name === nameClicked)
+        )
+      )
+    );
+
+    localStorage.setItem(
+      "namesToDisplay",
+      JSON.stringify(
+        namesToDisplay.filter((names) => names.name !== nameClicked)
       )
     );
   }

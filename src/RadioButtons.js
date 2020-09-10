@@ -15,25 +15,13 @@ function RadioButton(props) {
         </label>
       </div>
       <div className="form_radio_btn">
-        <input
-          type="radio"
-          id="female"
-          name="gender"
-          value="female"
-          className="form_radio_btn"
-        />
+        <input type="radio" id="female" name="gender" value="female" />
         <label htmlFor="female">
           <img alt="female" src="/female.jpg" />
         </label>
       </div>
       <div className="form_radio_btn">
-        <input
-          type="radio"
-          id="male"
-          name="gender"
-          value="male"
-          className="form_radio_btn"
-        />
+        <input type="radio" id="male" name="gender" value="male" />
         <label htmlFor="male">
           <img alt="male" src="/male.jpg" />
         </label>
