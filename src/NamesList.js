@@ -3,21 +3,13 @@ import React, { useState } from "react";
 function NamesList(props) {
   let sortedBabyNames = SortNames(props.babyNames);
 
-  let initialNames, initialFavourites;
-  if (localStorage.getItem("namesToDisplay") === null) {
-    initialNames = sortedBabyNames;
-  } else {
-    initialNames = JSON.parse(localStorage.getItem("namesToDisplay"));
-  }
-  let [namesToDisplay, setNamesToDisplay] = useState(initialNames);
+  let [namesToDisplay, setNamesToDisplay] = useState(
+    JSON.parse(localStorage.getItem("namesToDisplay")) || sortedBabyNames
+  );
 
-  if (localStorage.getItem("favourites") === null) {
-    initialFavourites = [];
-  } else {
-    initialFavourites = JSON.parse(localStorage.getItem("favourites"));
-  }
-
-  let [namesToFavourite, setNamesFavourite] = useState(initialFavourites);
+  let [namesToFavourite, setNamesFavourite] = useState(
+    JSON.parse(localStorage.getItem("favourites")) || []
+  );
 
   ///////////////////////////////////////////////////////////////////////////////////////
 
@@ -63,8 +55,26 @@ function NamesList(props) {
         )
       )
     );
+    /////////////////////////////////////////////////////////////////////////////
+    localStorage.setItem(
+      "namesToDisplay",
+      JSON.stringify(
+        SortNames(
+          namesToDisplay.concat(
+            namesToFavourite.filter((names) => names.name === nameClicked)
+          )
+        )
+      )
+    );
     setNamesFavourite(
       namesToFavourite.filter((names) => names.name !== nameClicked)
+    );
+    ////////////////////////////////////////////////////////////////////////////
+    localStorage.setItem(
+      "favourites",
+      JSON.stringify(
+        namesToFavourite.filter((names) => names.name !== nameClicked)
+      )
     );
   }
   if (props.radioValue === "male")
